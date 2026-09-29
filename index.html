@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Club Events</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #4f46e5;
+            color: white;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 24px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            cursor: pointer;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 420px;
+            padding: 80px 7%;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 20px;
+            background: #fff;
+            color: #4f46e5;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 50px 7%;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        /* FEATURED EVENT */
+        .featured {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .featured h3 {
+            color: #4f46e5;
+            margin-bottom: 12px;
+        }
+
+        /* SEARCH */
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+        }
+
+        /* EVENTS */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .event-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.08);
+        }
+
+        .event-card h3 {
+            color: #4f46e5;
+            margin-bottom: 12px;
+        }
+
+        .event-card p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 11px;
+            margin-top: 15px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* FORM */
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* ADMIN */
+        .admin {
+            background: #111827;
+            color: white;
+        }
+
+        .admin-box {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .admin-form {
+            background: white;
+            color: #222;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .admin-form input,
+        .admin-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+        }
+
+        .admin-event {
+            background: white;
+            color: #222;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .delete {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 9px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0f172a;
+            color: white;
+        }
+
+        /* MOBILE */
+        @media(max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .filters input,
+            .filters select {
+                width: 100%;
+            }
+
+            .admin-event {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <h2>CampusConnect</h2>
+
+    <div>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#register">Register</a>
+        <a href="#admin">Admin</a>
+    </div>
+</nav>
+
+
+<!-- HOME -->
+<div class="hero" id="home">
+    <div class="hero-content">
+        <h1>College Club Events</h1>
+
+        <p>
+            Discover exciting college events, workshops,
+            competitions and cultural activities happening
+            around your campus.
+        </p>
+
+        <button class="btn"
+                onclick="document.getElementById('events').scrollIntoView()">
+            Explore Events
+        </button>
+    </div>
+</div>
+
+
+<!-- CLUB INTRODUCTION -->
+<section>
+    <h2>About Our Club</h2>
+
+    <p class="intro">
+        CampusConnect is a student-driven college club platform
+        designed to bring students together through technical,
+        cultural, sports and social events. Explore events,
+        register easily and participate in campus activities.
+    </p>
+</section>
+
+
+<!-- FEATURED EVENT -->
+<section>
+    <h2>Featured Event</h2>
+
+    <div class="featured">
+        <h3>TechFest 2026</h3>
+
+        <p><b>Date:</b> 15 October 2026</p>
+        <p><b>Time:</b> 10:00 AM</p>
+        <p><b>Venue:</b> Main Auditorium</p>
+
+        <p>
+            Join us for an exciting technical festival featuring
+            coding competitions, workshops and project exhibitions.
+        </p>
+
+        <button class="register-btn"
+                onclick="selectEvent('TechFest 2026')">
+            Register Now
+        </button>
+    </div>
+</section>
+
+
+<!-- EVENTS -->
+<section id="events">
+
+    <h2>Upcoming Events</h2>
+
+    <!-- SEARCH AND FILTER -->
+    <div class="filters">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search event..."
+            onkeyup="displayEvents()"
+        >
+
+        <select id="category" onchange="displayEvents()">
+            <option value="all">All Categories</option>
+            <option value="Technical">Technical</option>
+            <option value="Cultural">Cultural</option>
+            <option value="Sports">Sports</option>
+            <option value="Workshop">Workshop</option>
+        </select>
+
+    </div>
+
+    <div class="events-container" id="eventsContainer"></div>
+
+</section>
+
+
+<!-- REGISTRATION -->
+<section id="register">
+
+    <h2>Event Registration</h2>
+
+    <div class="form-container">
+
+        <h3 id="selectedEvent">Register for an Event</h3>
+
+        <input
+            type="text"
+            id="studentName"
+            placeholder="Full Name"
+        >
+
+        <input
+            type="email"
+            id="studentEmail"
+            placeholder="Email"
+        >
+
+        <input
+            type="text"
+            id="collegeYear"
+            placeholder="College / Year"
+        >
+
+        <input
+            type="tel"
+            id="phone"
+            placeholder="Phone Number"
+        >
+
+        <button class="submit-btn"
+                onclick="registerStudent()">
+            Submit Registration
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ADMIN DASHBOARD -->
+<section class="admin" id="admin">
+
+    <h2>Admin Dashboard</h2>
+
+    <div class="admin-box">
+
+        <!-- ADD EVENT -->
+        <div class="admin-form">
+
+            <h3>Add New Event</h3>
+
+            <input
+                type="text"
+                id="eventName"
+                placeholder="Event Name"
+            >
+
+            <input
+                type="date"
+                id="eventDate"
+            >
+
+            <input
+                type="time"
+                id="eventTime"
+            >
+
+            <input
+                type="text"
+                id="eventVenue"
+                placeholder="Venue"
+            >
+
+            <select id="eventCategory">
+                <option value="Technical">Technical</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Sports">Sports</option>
+                <option value="Workshop">Workshop</option>
+            </select>
+
+            <input
+                type="text"
+                id="eventDescription"
+                placeholder="Description"
+            >
+
+            <button class="submit-btn"
+                    onclick="addEvent()">
+                Add Event
+            </button>
+
+        </div>
+
+        <!-- ADMIN EVENTS -->
+        <h3>Manage Events</h3>
+
+        <div id="adminEvents"></div>
+
+        <br>
+
+        <!-- REGISTRATIONS -->
+        <h3>Registered Students</h3>
+
+        <input
+            type="text"
+            id="registrationSearch"
+            placeholder="Search registrations..."
+            onkeyup="displayRegistrations()"
+            style="width:100%; padding:12px; margin:15px 0;"
+        >
+
+        <div id="registrations"></div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    <p>© 2026 CampusConnect | College Club Event Management</p>
+</footer>
+
+
+<script>
+
+    // EVENT DATA
+
+    let events = [
+        {
+            name: "TechFest 2026",
+            date: "2026-10-15",
+            time: "10:00",
+            venue: "Main Auditorium",
+            category: "Technical",
+            description: "Technical festival with coding competitions and workshops."
+        },
+
+        {
+            name: "Cultural Night",
+            date: "2026-10-20",
+            time: "06:00",
+            venue: "College Ground",
+            category: "Cultural",
+            description: "Music, dance and cultural performances."
+        },
+
+        {
+            name: "Inter College Cricket",
+            date: "2026-10-25",
+            time: "09:00",
+            venue: "Sports Ground",
+            category: "Sports",
+            description: "Inter-college cricket tournament."
+        },
+
+        {
+            name: "Web Development Workshop",
+            date: "2026-11-02",
+            time: "11:00",
+            venue: "Computer Lab",
+            category: "Workshop",
+            description: "Learn modern web development technologies."
+        }
+    ];
+
+
+    // REGISTRATIONS
+
+    let registrations = [];
+
+
+    // DISPLAY EVENTS
+
+    function displayEvents() {
+
+        let container =
+            document.getElementById("eventsContainer");
+
+        let search =
+            document.getElementById("search")
+            .value
+            .toLowerCase();
+
+        let category =
+            document.getElementById("category").value;
+
+        container.innerHTML = "";
+
+        events.forEach((event, index) => {
+
+            if (
+                !event.name.toLowerCase().includes(search)
+                ||
+                (category !== "all" &&
+                 event.category !== category)
+            ) {
+                return;
+            }
+
+            container.innerHTML += `
+
+                <div class="event-card">
+
+                    <h3>${event.name}</h3>
+
+                    <p>
+                        <b>Date:</b>
+                        ${event.date}
+                    </p>
+
+                    <p>
+                        <b>Time:</b>
+                        ${event.time}
+                    </p>
+
+                    <p>
+                        <b>Venue:</b>
+                        ${event.venue}
+                    </p>
+
+                    <p>
+                        <b>Category:</b>
+                        ${event.category}
+                    </p>
+
+                    <p>
+                        ${event.description}
+                    </p>
+
+                    <button
+                        class="register-btn"
+                        onclick="selectEvent('${event.name}')">
+
+                        Register
+
+                    </button>
+
+                </div>
+            `;
+        });
+    }
+
+
+    // SELECT EVENT FOR REGISTRATION
+
+    function selectEvent(name) {
+
+        document.getElementById("selectedEvent")
+            .innerText = "Register for: " + name;
+
+        document.getElementById("register")
+            .scrollIntoView();
+
+    }
+
+
+    // REGISTER STUDENT
+
+    function registerStudent() {
+
+        let name =
+            document.getElementById("studentName").value;
+
+        let email =
+            document.getElementById("studentEmail").value;
+
+        let college =
+            document.getElementById("collegeYear").value;
+
+        let phone =
+            document.getElementById("phone").value;
+
+        let event =
+            document.getElementById("selectedEvent")
+            .innerText
+            .replace("Register for: ", "");
+
+
+        if (!name || !email || !college || !phone) {
+
+            alert("Please fill all fields!");
+
+            return;
+        }
+
+
+        registrations.push({
+            name: name,
+            email: email,
+            college: college,
+            phone: phone,
+            event: event
+        });
+
+
+        alert("Registration successful!");
+
+
+        document.getElementById("studentName").value = "";
+        document.getElementById("studentEmail").value = "";
+        document.getElementById("collegeYear").value = "";
+        document.getElementById("phone").value = "";
+
+
+        displayRegistrations();
+
+    }
+
+
+    // ADD EVENT
+
+    function addEvent() {
+
+        let name =
+            document.getElementById("eventName").value;
+
+        let date =
+            document.getElementById("eventDate").value;
+
+        let time =
+            document.getElementById("eventTime").value;
+
+        let venue =
+            document.getElementById("eventVenue").value;
+
+        let category =
+            document.getElementById("eventCategory").value;
+
+        let description =
+            document.getElementById("eventDescription").value;
+
+
+        if (!name || !date || !time || !venue || !description) {
+
+            alert("Please fill all event fields!");
+
+            return;
+        }
+
+
+        events.push({
+            name,
+            date,
+            time,
+            venue,
+            category,
+            description
+        });
+
+
+        alert("Event added successfully!");
+
+
+        document.getElementById("eventName").value = "";
+        document.getElementById("eventDate").value = "";
+        document.getElementById("eventTime").value = "";
+        document.getElementById("eventVenue").value = "";
+        document.getElementById("eventDescription").value = "";
+
+
+        displayEvents();
+        displayAdminEvents();
+
+    }
+
+
+    // DELETE EVENT
+
+    function deleteEvent(index) {
+
+        if (confirm("Delete this event?")) {
+
+            events.splice(index, 1);
+
+            displayEvents();
+            displayAdminEvents();
+
+        }
+
+    }
+
+
+    // ADMIN EVENT LIST
+
+    function displayAdminEvents() {
+
+        let container =
+            document.getElementById("adminEvents");
+
+        container.innerHTML = "";
+
+
+        events.forEach((event, index) => {
+
+            container.innerHTML += `
+
+                <div class="admin-event">
+
+                    <div>
+                        <b>${event.name}</b>
+                        <br>
+                        ${event.date} | ${event.venue}
+                    </div>
+
+                    <button
+                        class="delete"
+                        onclick="deleteEvent(${index})">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    // DISPLAY REGISTRATIONS
+
+    function displayRegistrations() {
+
+        let container =
+            document.getElementById("registrations");
+
+        let search =
+            document.getElementById("registrationSearch")
+            .value
+            .toLowerCase();
+
+        container.innerHTML = "";
+
+
+        registrations.forEach((student) => {
+
+            if (
+                !student.name.toLowerCase().includes(search)
+                &&
+                !student.email.toLowerCase().includes(search)
+                &&
+                !student.event.toLowerCase().includes(search)
+            ) {
+                return;
+            }
+
+
+            container.innerHTML += `
+
+                <div class="admin-event">
+
+                    <div>
+
+                        <b>${student.name}</b>
+                        <br>
+
+                        Email: ${student.email}
+                        <br>
+
+                        College/Year: ${student.college}
+                        <br>
+
+                        Phone: ${student.phone}
+                        <br>
+
+                        Event: ${student.event}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    // INITIAL DISPLAY
+
+    displayEvents();
+    displayAdminEvents();
+    displayRegistrations();
+
+</script>
+
+</body>
+</html>
